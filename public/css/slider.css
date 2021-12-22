@@ -1,0 +1,258 @@
+
+.logo {
+    width: 200%;
+    height: 100%
+}
+
+.items {
+    width: 72%;
+    margin: 0px auto;
+
+}
+
+.avatar-lgg{
+    /* height: 4rem !important; */
+        line-height: 3rem !important;
+        font-size: 1.25rem !important;
+}
+
+.slick-slide {
+    margin: 10px
+}
+
+/*
+  /* Slider */
+
+  .slick-slide {
+    margin: 10px 20px ;
+}
+
+.slick-slide img {
+    width: 100%;
+}
+
+.slick-slider
+{
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+            user-select: none;
+    -webkit-touch-callout: none;
+    -khtml-user-select: none;
+    -ms-touch-action: pan-y;
+        touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+    background-color: #f5f6fd;
+}
+
+.slick-list
+{
+    position: relative;
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+.slick-list:focus
+{
+    outline: none;
+}
+.slick-list.dragging
+{
+    cursor: pointer;
+    cursor: hand;
+}
+
+.slick-slider .slick-track,
+.slick-slider .slick-list
+{
+    -webkit-transform: translate3d(0, 0, 0);
+       -moz-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+         -o-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+}
+
+.slick-track
+{
+    position: relative;
+    top: 0;
+    left: 0;
+    display: block;
+}
+.slick-track:before,
+.slick-track:after
+{
+    display: table;
+    content: '';
+}
+.slick-track:after
+{
+    clear: both;
+}
+.slick-loading .slick-track
+{
+    visibility: hidden;
+}
+
+.slick-slide
+{
+    display: none;
+    float: left;
+    height: 100%;
+    min-height: 1px;
+}
+[dir='rtl'] .slick-slide
+{
+    float: right;
+}
+.slick-slide img
+{
+    display: block;
+    width: 60px;
+    transform: scale(2);
+    border-radius: 50%;
+    margin-top:10px
+}
+.slick-slide img:hover
+{
+  vertical-align: middle;
+  transition: ease-in-out 0.2s;
+  /* transform: scale(2.5); */
+
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+}
+.slick-slide.slick-loading img
+{
+    display: none;
+}
+.slick-slide.dragging img
+{
+    pointer-events: none;
+}
+.slick-initialized .slick-slide
+{
+    display: block;
+}
+.slick-loading .slick-slide
+{
+    visibility: hidden;
+}
+.slick-vertical .slick-slide
+{
+    display: block;
+    height: auto;
+    border: 1px solid transparent;
+}
+.slick-arrow{
+      display: none;
+      text-shadow: 10;
+      color: rebeccapurple;
+}
+
+.plus{
+    background-color: #ec607f;
+    border: 1px solid #ec607f;
+    color: white;
+}
+
+.minus{
+    background-color: #ec607f;
+    border: 1px solid #ec607f;
+    color: white;
+
+}
+
+button.btn.add-to-cart-btn{
+    background-color: #ec607f;
+    border: 1px solid #ec607f;
+    color: white;
+}
+
+.heading{
+    color:white;
+    font-weight: 900;
+}
+
+@media (min-width: 1100px){
+    /* .table-responsive{
+        display: contents !important;
+    } */
+}
+@media (max-width: 480px){
+    .total{
+        font-size:12px !important;
+    }
+
+    .order_header{
+        font-size:12px !important;
+    }
+
+    .status-button{
+        margin-right: 100px !important;
+    }
+
+    .cust{
+        display: none;
+    }
+
+    .outer-bar{
+        display: block !important;
+    }
+
+    .w3-button{
+        margin-left: -209px !important;
+    }
+
+    .w3-bar-block .w3-bar-item{
+        width: 400px !important;
+    }
+
+    .item-back{
+        background: antiquewhite !important;
+    }
+
+    .w3-black{
+        background-color: #ec607f !important;
+    }
+
+    .icon-shopping-cart {
+        margin-top: 10px !important;
+    }
+    
+    .table-responsive{
+         margin-left: -200px !important;
+    }
+}
+
+
+div.icon-bar {
+    width: 35px;
+    height: 5px;
+    background-color: white;
+    margin: 6px 0;
+  }
+
+  .short-codes{
+      background-color: white;
+      padding: 14px;
+      border-radius: 5px;
+  }
+
+
+  .short-code-button{
+    background-color: white;
+    border:none;
+    float: right;
+}
+
+.short-code-data{
+    background-color: #ec607f;
+    color: white;
+    padding: 10px;
+    font-size: 15px;
+    border-radius: 5px;
+}

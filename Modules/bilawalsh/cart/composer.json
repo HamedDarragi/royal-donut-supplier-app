@@ -1,0 +1,14 @@
+{
+    "name": "bilawalsh/cart",
+    "description": "This is Cart package for ecommerce site in laravel",
+    "type": "laravel",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "BilawalBasheer",
+            "email": "bilawalb92@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
