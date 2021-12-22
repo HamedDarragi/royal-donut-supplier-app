@@ -29,28 +29,57 @@
                     class="side-menu__label">Catalog</span><i class="angle fa fa-angle-right"></i></a> --}}
             {{-- <ul class="slide-menu">--}}
                 <ul class="p-5">
-                    @role('Admin')
+                <!-- Super Admin -->
+
+                @role('SuperAdmin')
+                    @can('Products')
                     <li><a class="slide-item" href="{{ route('product.index') }}">{{ trans('french.Products') }}</a></li>
+                    @endcan
+                    @can('Categories')
                     <li><a class="slide-item" href="{{ route('category.index') }}">{{ trans('french.Categories') }}</a></li>
+                    @endcan
+                    @can('Orders')
                     <li><a class="slide-item" href="{{url('orders')}}">{{ trans('french.Orders') }}</a></li>
+                    @endcan
+                    @can('Units')
                     <li><a class="slide-item" href="{{ route('unit.index') }}">{{ trans('french.Units') }}</a></li>
-                    {{-- <li><a class="slide-item" href="{{ route('inventory.index') }}">Inventory</a></li> --}}
-                    <li><a class="slide-item" href="{{ route('customer.index') }}">{{ trans('french.Customers') }}</a></li>
-                    {{-- <li><a class="slide-item" href="{{ route('broadcast.index') }}">Broadcast Email</a></li>
-                    <li><a class="slide-item" href="{{ route('broadcast_group.index') }}">Email Group</a></li> --}}
-                    {{-- <li><a class="slide-item" href="{{ route('manufacturing_partner.index') }}">Manufacturers</a>
-                    </li> --}}
-                    <li><a class="slide-item" href="{{ route('supplier.index') }}">{{ trans('french.Suppliers') }}</a></li>
-                    <li><a class="slide-item" href="{{ route('deliverycompany.index') }}">{{ trans('french.Delivery Companies') }}</a></li>
-
-                    <li><a class="slide-item" href="{{ route('calendar') }}">{{ trans('french.Calendar') }}</a></li>
-                    <li><a class="slide-item" href="{{ route('rule.index') }}">{{ trans('french.Rules')}}</a></li>
-                    <li><a class="slide-item" href="{{ route('backlogs.index') }}">{{ trans('french.Backlogs')}}</a></li>
                     
+                    {{-- <li><a class="slide-item" href="{{ route('inventory.index') }}">Inventory</a></li> --}}
+                    @endcan
+                    @can('Admins')
+                    <li><a class="slide-item" href="{{ route('admins.index') }}">Admins</a></li>
+                   
+                    @endcan
+                    @can('Customers')
+                    <li><a class="slide-item" href="{{ route('customer.index') }}">{{ trans('french.Customers') }}</a></li>
+                   
+                    @endcan
+                    @can('Suppliers')
+                    
+                    <li><a class="slide-item" href="{{ route('supplier.index') }}">{{ trans('french.Suppliers') }}</a></li>
+                    @endcan
+                    @can('DeliveryCompanies')
+                    <li><a class="slide-item" href="{{ route('deliverycompany.index') }}">{{ trans('french.Delivery Companies') }}</a></li>
+                    @endcan
+                    @can('Calendar')
+                    <li><a class="slide-item" href="{{ route('calendar') }}">{{ trans('french.Calendar') }}</a></li>
+                    @endcan
+                    @can('Rules')
+                    <li><a class="slide-item" href="{{ route('rule.index') }}">{{ trans('french.Rules')}}</a></li>
+                    @endcan
+                    @can('Backlogs')
+                    <li><a class="slide-item" href="{{ route('backlogs.index') }}">{{ trans('french.Backlogs')}}</a></li>
+                    @endcan
+                    @can('Associate Rule')
             <li><a class="slide-item" href="{{ route('associate_rule.index') }}">{{ trans('french.Associate Rule')}}</a></li>
-            
+            @endcan
+                    @can('ManageRoles')
+            <li><a class="slide-item" href="{{ route('roles.index') }}">Manage Role</a></li>
+            @endcan
+                    @can('Backups')
             <li><a class="slide-item" href="{{ route('backupmanager') }}">Backups</a></li>
-
+            @endcan
+                    @can('EmailSettings')
                     <li>
                     <details>
                         <summary class="mt-2">{{ trans('french.Email Settings') }}</summary>
@@ -60,12 +89,81 @@
                         
                     </details>
                     </li>
+                    @endcan
+                    @endrole
+
+                <!-- End Super Admin -->
+                @role('Admin')
+                    @can('Products')
+                    <li><a class="slide-item" href="{{ route('product.index') }}">{{ trans('french.Products') }}</a></li>
+                    @endcan
+                    @can('Categories')
+                    <li><a class="slide-item" href="{{ route('category.index') }}">{{ trans('french.Categories') }}</a></li>
+                    @endcan
+                    @can('Orders')
+                    <li><a class="slide-item" href="{{url('orders')}}">{{ trans('french.Orders') }}</a></li>
+                    @endcan
+                    @can('Units')
+                    <li><a class="slide-item" href="{{ route('unit.index') }}">{{ trans('french.Units') }}</a></li>
+                    
+                    {{-- <li><a class="slide-item" href="{{ route('inventory.index') }}">Inventory</a></li> --}}
+                    @endcan
+                    @can('Admins')
+                    <li><a class="slide-item" href="{{ route('admins.index') }}">Admins</a></li>
+                   
+                    @endcan
+                    @can('Customers')
+                    <li><a class="slide-item" href="{{ route('customer.index') }}">{{ trans('french.Customers') }}</a></li>
+                   
+                    @endcan
+                    @can('Suppliers')
+                    
+                    <li><a class="slide-item" href="{{ route('supplier.index') }}">{{ trans('french.Suppliers') }}</a></li>
+                    @endcan
+                    @can('DeliveryCompanies')
+                    <li><a class="slide-item" href="{{ route('deliverycompany.index') }}">{{ trans('french.Delivery Companies') }}</a></li>
+                    @endcan
+                    @can('Calendar')
+                    <li><a class="slide-item" href="{{ route('calendar') }}">{{ trans('french.Calendar') }}</a></li>
+                    @endcan
+                    @can('Rules')
+                    <li><a class="slide-item" href="{{ route('rule.index') }}">{{ trans('french.Rules')}}</a></li>
+                    @endcan
+                    @can('Backlogs')
+                    <li><a class="slide-item" href="{{ route('backlogs.index') }}">{{ trans('french.Backlogs')}}</a></li>
+                    @endcan
+                    @can('Associate Rule')
+            <li><a class="slide-item" href="{{ route('associate_rule.index') }}">{{ trans('french.Associate Rule')}}</a></li>
+            @endcan
+                    @can('ManageRoles')
+            <li><a class="slide-item" href="{{ route('roles.index') }}">Manage Role</a></li>
+            @endcan
+                    @can('Backups')
+            <li><a class="slide-item" href="{{ route('backupmanager') }}">Backups</a></li>
+            @endcan
+                    @can('EmailSettings')
+                    <li>
+                    <details>
+                        <summary class="mt-2">{{ trans('french.Email Settings') }}</summary>
+                        <a class="slide-item ml-5" href="{{ route('footer') }}"><i class="fa fa-sliders-h"></i>&nbsp;{{ trans('french.Email Footer') }}</a>
+                            <!-- <li><a class="slide-item ml-5" href="{{ route('title') }}"><i class="fa fa-sliders-h"></i>&nbsp;{{ trans('french.Title') }}</a></li> -->
+                            <a class="slide-item ml-5" href="{{ route('emailhistory') }}"><i class="fa fa-sliders-h"></i>&nbsp;{{ trans('french.Email History') }}</a>
+                        
+                    </details>
+                    </li>
+                    @endcan
                     @endrole
 
                     @role('Customer')
+                    
+                    @can('Suppliers')
                     <li><a class="slide-item" href="{{ url('customer/suppliers') }}">{{ trans('french.Suppliers') }}</a></li>
                     <!-- <li><a class="slide-item" href="{{url('customer/cart_page')}}">Cart</a></li> -->
+                    @endcan
+                    @can('Orders')
                     <li><a class="slide-item" href="{{url('customer/myorders')}}">{{ trans('french.Orders') }}</a></li>
+                    @endcan
+                    
                     @endrole
 
                     @role('Supplier')

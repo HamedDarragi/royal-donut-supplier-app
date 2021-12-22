@@ -111,7 +111,7 @@ Route::prefix('customer')->middleware(['auth', 'role:Customer'])->group(function
     });
 
     Route::post('submit_delivery_data', function (Request $request) {
-        // dd($request->all());
+        // dd($request->message);
         // if(isset($request->cart_id)){
             foreach ($request->cart_id as $cart_id) {
                 $delivery = new DeliveryInformation();

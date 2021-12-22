@@ -29,7 +29,7 @@
                 <tr>
                  
                     <td>{{ $i++ }}</td>
-                    <td>{{ substr($company->name, 0, 20); }}</td>
+                    <td>{{ $company->name }}</td>
                     <td>{{ $company->minimum_order_amount }} €</td>
                     <td>{{ $company->delivery_fee }} €</td>
 

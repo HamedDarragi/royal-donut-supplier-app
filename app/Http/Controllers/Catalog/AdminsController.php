@@ -2,21 +2,19 @@
 
 namespace App\Http\Controllers\Catalog;
 
-use Illuminate\Support\Facades\Http;
-use App\Models\Supplier;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Repositories\CrudRepository;
 use Spatie\Activitylog\Models\Activity;
 use Spatie\Permission\Models\Role;
 use DB;
 
-class CustomerController extends Controller
+class AdminsController extends Controller
 {
     protected $crud_repository;
     protected $model = "User";
-    protected $view = 'customer';
-    protected $role = 'Customer';
+    protected $view = 'admins';
+    protected $role = 'Admin';
     // index
     // edit
     /**
@@ -31,9 +29,10 @@ class CustomerController extends Controller
     public function index()
     {
 
-        $customers = app('App\\Models\\' . $this->model)::role('Customer')->get();
+        // dd('hjh');
+        $admins = app('App\\Models\\' . $this->model)::role('Admin')->get();
         $view = $this->view;
-        return view('mycomponent.datatable', compact('customers', 'view'));
+        return view('mycomponent.datatable', compact('admins', 'view'));
     }
 
     /**
@@ -43,7 +42,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        $role = Role::where('name','Customer')->first();
+        $role = Role::where('name','Admin')->first();
         return view('catalog.' . $this->view . '.create',compact('role'));
     }
 
@@ -70,17 +69,17 @@ class CustomerController extends Controller
         if(strlen($request->zip_code) == 5){
             $message = $this->crud_repository->registerNewUser($request, $this->model, $this->role);
 
-            $cust = app('App\\Models\\' . $this->model)::latest()->first();
-            $a = activity()->log('Look mum, I logged something');
-            $a->subject_id = "CUST-".$cust->id;
-            $a->subject_type = "Customer";
-            $a->causer_type = "Admin";
-            $a->properties = 1;
-            $a->action = "Customer Created";
-            $a->save();
+            // $cust = app('App\\Models\\' . $this->model)::latest()->first();
+            // $a = activity()->log('Look mum, I logged something');
+            // $a->subject_id = "CUST-".$cust->id;
+            // $a->subject_type = "Customer";
+            // $a->causer_type = "Admin";
+            // $a->properties = 1;
+            // $a->action = "Customer Created";
+            // $a->save();
             // dd($a);
 
-            return redirect()->route($this->view . '.index')->with('status', $this->model . $message);
+            return redirect()->route('admins.index')->with('status', $this->model . $message);
         }else{
             // $a = activity()->log('Look mum, I logged something');
             // $a->subject_type = "Customer";
@@ -88,7 +87,7 @@ class CustomerController extends Controller
             // $a->properties = 0;
             // $a->action = "Customer Not Created";
             // $a->save();
-            return redirect()->route($this->view . '.index')->with('status', "Value of zip code must contain 5 digit");
+            return redirect()->route('admins.index')->with('status', "Value of zip code must contain 5 digit");
         }
         
     }
@@ -111,10 +110,10 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        $customer = app('App\\Models\\' . $this->model)->find($id);
+        $admin = app('App\\Models\\' . $this->model)->find($id);
         $view = $this->view;
-        $role = Role::where('name','Customer')->first();
-        return view('catalog.' . $this->view . '.create', compact('customer', 'view','role'));
+        $role = Role::where('name','Admin')->first();
+        return view('catalog.' . $this->view . '.create', compact('admin', 'view','role'));
     }
 
     /**
@@ -127,14 +126,14 @@ class CustomerController extends Controller
     public function update(Request $request, $id)
     {
         $message = $this->crud_repository->update($request, $id, $this->model);
-        $cust = app('App\\Models\\' . $this->model)::find($id);
-            $a = activity()->log('Look mum, I logged something');
-            $a->subject_id = "CUST-".$cust->id;
-            $a->subject_type = "Customer";
-            $a->causer_type = "Admin";
-            $a->properties = 1;
-            $a->action = "Customer Updated";
-            $a->save();
+        // $cust = app('App\\Models\\' . $this->model)::find($id);
+        //     $a = activity()->log('Look mum, I logged something');
+        //     $a->subject_id = "CUST-".$cust->id;
+        //     $a->subject_type = "Customer";
+        //     $a->causer_type = "Admin";
+        //     $a->properties = 1;
+        //     $a->action = "Customer Updated";
+        //     $a->save();
         return redirect()->route($this->view . '.index')->with('status', $this->model . $message);
     }
 
@@ -146,41 +145,16 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        $cust = app('App\\Models\\' . $this->model)::find($id);
-            $a = activity()->log('Look mum, I logged something');
-            $a->subject_id = "CUST-".$cust->id;
-            $a->subject_type = "Customer";
-            $a->causer_type = "Admin";
-            $a->properties = 1;
-            $a->action = "Customer Deleted";
-            $a->save();
+        // $cust = app('App\\Models\\' . $this->model)::find($id);
+        //     $a = activity()->log('Look mum, I logged something');
+        //     $a->subject_id = "CUST-".$cust->id;
+        //     $a->subject_type = "Customer";
+        //     $a->causer_type = "Admin";
+        //     $a->properties = 1;
+        //     $a->action = "Customer Deleted";
+        //     $a->save();
         $message = $this->crud_repository->destroy($id, $this->model);
         
         return redirect()->route($this->view . '.index')->with('status', $this->model . $message);
-    }
-
-    public function status($id)
-    {
-        $message = $this->crud_repository->status($id, $this->model);
-        return redirect()->route($this->view . '.index')->with('status', $this->model . $message);
-    }
-
-    public function search(Request $request)
-    {
-        $view = $this->view;
-        $q = $request->get('search');
-        $customers = app('App\\Models\\' . $this->model)::where('first_name', 'LIKE', '%' . $q . '%')->orWhere('last_name', 'LIKE', '%' . $q . '%')->get();
-
-        if (count($customers) > 0)
-            return view('mycomponent.datatable', compact('customers', 'view'));
-        else
-            return view('mycomponent.datatable', compact('customers', 'view'));
-    }
-
-
-    public function getSupplier()
-    {
-        $suppliers = app('App\\Models\\' . $this->model)::role('Supplier')->isActive()->get();
-        return view('customer.index', compact('suppliers'));
     }
 }

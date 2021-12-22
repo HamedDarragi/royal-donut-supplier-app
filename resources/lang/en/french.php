@@ -1,97 +1,7 @@
 <?php
 
 return [
-    // 'Products' => 'Des produits',
-    // 'product' => 'Des produit',
-
-    // 'Categories' => 'Catégories',
-    // 'Orders' => 'Ordres',
-    // 'Units' => 'Unités',
-    // 'Customers' => 'Les clients',
-    // 'Suppliers' => 'Fournisseurs',
-    // 'Delivery Companies' => 'Entreprises de livraison',
-    // 'Calendar' => 'Calendrier',
-    // 'Email Settings' => 'Paramètres de messagerie',
-    // 'Email Footer' => 'Pied de page de le-mail',
-    // 'Title' => 'Titre',
-    // 'Email History' => 'Historique des e-mails',
-    // 'Order' => 'Commander',
-    // 'Supplier' => 'Le fournisseur',
-    // 'Subject' => 'Sujette',
-    // 'Message' => 'Un message',
-    // 'Date' => 'Date',
-    // 'status' => 'statut',
-    // 'Footer Signature' => 'Signature de pied de page',
-    // 'Name' => 'Nom',
-    // 'Action' => 'action',
-    // 'Delivery Company' => 'Compagnie de livraison',
-    // 'Update' => 'Mettre à jour',
-    // 'Save' => 'sauvegarder',
-    // 'Email' => 'E-mail',
-    // 'Mobile Number' => 'Numéro de portable',
-    // 'supplier' => 'le fournisseur',
-    // 'View' => 'Vue',
-    // 'Name Abbreviation' => 'Nom Abréviation',
-    // 'Address' => 'Adresse',
-    // 'Tax Number' => "Numéro d'identification fiscale",
-    // 'customer' => 'client',
-    // 'Franchise Name' => 'Nom de la franchise',
-    // 'Zip Code' => 'Code postal',
-    // 'Password' => 'Mot de passe',
-    // 'report' => 'rapport',
-    // 'Abbreviation' => 'Nom Abréviation',
-    // 'unit' => 'unité',
-    // 'Search' => 'chercher',
-    // 'Order Date' => 'Date de commande',
-    // 'Price' => 'LE PRIX',
-    // 'REQUIRED QUANTITY' => 'QUANTITÉ REQUISE',
-    // 'MINIMUM QUANTITY' => 'QUANTITÉ MINIMUM',
-    // 'Delivered' => 'Livré',
-    // 'Confirmed' => 'Confirmé',
-    // 'Treated' => 'Traité',
-    // 'Indelivery' => 'En livraison',
-    // 'Generate Email' => 'Générer un e-mail',
-    // 'Content' => 'Teneur',
-    // 'Send' => 'Envoyer',
-    // 'Image' => 'Image',
-    // 'category' => 'Catégorie',
-    // 'Description' => 'La description',
-    // 'Quantity' => 'QUANTITÉ',
-    // 'All' => 'Tout',
-    // 'No' => 'Non',
-    // 'Total' => 'Le total',
-    // 'Print' => 'Imprimer',
-    // 'Active' => 'Active',
-    // "Royal Donut's Admin" => 'Administrateur de Royal Donut',
-    // "Royal Donut's Customer" => 'Client de Royal Donut',
-    // 'Available Quantity' => 'QUANTITÉ DISPONIBLE',
-    // 'UnConfirmed' => 'Non confirmé',
-    // 'Modify' => 'Modifier',
-    // 'Confirm' => 'Confirmer',
-    // 'Order for another supplier' => 'Commande pour un autre fournisseur',
-    // 'Fax Number' => 'Numéro de fax',
-    // 'Close' => 'proche',
-    // 'Acceptance Time' => "Temps d'acceptation",
-    // 'Treatment Day' => 'Jour de traitement',
-    // 'Delivery Days' => 'Jours de livraison',
-    // 'Rule' => 'Régner',
-    // 'Rule Name' => 'Nom de la règle',
-    // 'Customer Name' => 'Nom du client',
-    // 'Supplier Name' => 'Nom du fournisseur',
-    // 'Associate Rule' => 'Règle associée',
-    // 'Associated Rules' => 'Règles associées',
-    // 'Rules' => 'Régner',
-    // 'Minimum Order Amount' => 'Montant minimum de commande',
-    // 'Delivery Fee' => 'Frais de livraison',
-    // 'Fee Applied' => 'Frais appliqués',
-    // 'Backlogs' => 'Arriérés',
-    // 'User' => 'UTILISATEUR',
-    // 'Object' => 'OBJET',
-    // 'Time' => 'TEMPS',
-    // 'Filter by' => 'Filtrer par',
-    // 'Delivery Minimum Amount' => 'Montant minimum de livraison'
-
-'Products' => 'Products',
+    'Products' => 'Products',
     'product' => 'product',
 
     'Categories' => 'Categories',
@@ -181,6 +91,22 @@ return [
     'Filter by' => 'Filter By',
     'Delivery Minimum Amount' => 'Delivery Minimum Amount'
 
+
     
 
 ];
+
+// mughees
+// Mughees1234
+
+// irfan 
+// Irfan1234
+
+// anwaar
+// Anwaar1234
+
+// // basit
+// // Basit1234
+
+// rafiq
+// Rafiq1234
