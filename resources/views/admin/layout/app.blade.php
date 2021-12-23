@@ -38,6 +38,15 @@
             border-radius: 50%;
         }
 
+        #lblCartCount1 {
+            font-size: 12px;
+            background: white;
+            color: black;
+            padding: 0 5px;
+            vertical-align: top;
+            border-radius: 50%;
+        }
+
         ::marker {
             display: none;
             color: white;
@@ -112,12 +121,15 @@ span.relative.inline-flex.items-center.px-4.py-2.text-sm.font-medium.text-gray-5
                             Dashboard
                             @endisset
                         </h4>
+                       
+
                         @role('Customer')
                         <h4 class="page-title">
                             Dashboard
                         </h4>
                         @php
-                        $c = bilawalsh\cart\Models\Cart::where('user_id',auth()->user()->id)->count()
+                        $c = bilawalsh\cart\Models\Cart::where('user_id',auth()->user()->id)->count();
+
                         @endphp
                         <li>
 
@@ -126,6 +138,8 @@ span.relative.inline-flex.items-center.px-4.py-2.text-sm.font-medium.text-gray-5
                                 <label ID="lblCartCount" runat="server" CssClass="badge badge-warning"
                                     ForeColor="White" />{{isset($c)? $c:'0'}}
                             </a>
+
+                            
                         </li>
                         @endrole
                     </div>

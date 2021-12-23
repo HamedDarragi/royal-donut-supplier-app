@@ -131,7 +131,7 @@
                             <a href="{{url('customer/cart')}}" class="icon-shopping-cart" style="font-size: 25px"><i
                                     class="fa fa-shopping-cart" style="font-size: 25px"></i>
                                 <label ID="lblCartCount" runat="server" CssClass="badge badge-warning"
-                                    ForeColor="White" />{{isset($c)? $c:'0'}}
+                                    ForeColor="White" />{{isset($c)? $c:'05'}}
                             </a>
                         </li>
                         @endrole

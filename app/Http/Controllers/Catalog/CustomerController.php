@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\CrudRepository;
 use Spatie\Activitylog\Models\Activity;
 use Spatie\Permission\Models\Role;
+use App\Models\RectifyOrder;
 use DB;
 
 class CustomerController extends Controller
@@ -66,7 +67,7 @@ class CustomerController extends Controller
             'city' => 'required'
 
         ]);
-        $this->role = $request->user_type;
+        $this->role = "Customer";
         if(strlen($request->zip_code) == 5){
             $message = $this->crud_repository->registerNewUser($request, $this->model, $this->role);
 
@@ -182,5 +183,12 @@ class CustomerController extends Controller
     {
         $suppliers = app('App\\Models\\' . $this->model)::role('Supplier')->isActive()->get();
         return view('customer.index', compact('suppliers'));
+    }
+
+
+    public function rectifyOrders(){
+
+        $orders = RectifyOrder::where('user_id',auth()->user()->id)->paginate(5);
+        return view('customer.rectifyorders',compact('orders'));
     }
 }

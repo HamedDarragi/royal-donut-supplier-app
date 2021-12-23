@@ -34,19 +34,24 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+
+        // $ar = [];
+        // $roles = Role::get('name');
+        // foreach($roles as $role){
+        //     if($role != "Customer" && $a != "Supplier"){
+        //         array_push($ar,$role->name);
+        //     }
+        // }
+
+        
+                
         if (auth()->user()->hasRole('Customer')) {
             return redirect()->intended(RouteServiceProvider::CUSTOMER);
         } else if (auth()->user()->hasRole('Supplier')) {
             return redirect()->intended(RouteServiceProvider::SUPPLIER);
-        } else if (auth()->user()->hasRole('Admin')) {
-            return redirect()->intended(RouteServiceProvider::HOME);
-        }else if (auth()->user()->hasRole('SuperAdmin')) {
-            // dd(auth()->user()->hasRole('SuperAdmin'));
-            
-            return redirect()->intended(RouteServiceProvider::HOME);
         } else{
-            dd('failed');
-        }
+            return redirect()->intended(RouteServiceProvider::HOME);
+        } 
         
     }
 

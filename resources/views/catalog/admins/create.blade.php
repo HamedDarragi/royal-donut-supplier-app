@@ -61,8 +61,19 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="address">Role</label>
-                        <select name="user_type" id="user_type" class="form-control">
-                            <option value="{{$role->name}}">{{$role->name}}</option>
+                        <select name="user_type" id="user_type" class="form-control" required>
+                            @foreach($roles as $role)
+                            @if(isset($admin))
+                                @if($admin->hasRole($role->name))
+                                    <option value="{{$role->name}}" selected>{{$role->name}}</option>
+                                @else
+                                    <option value="{{$role->name}}">{{$role->name}}</option>
+                                @endif
+                            @else
+                                <option value="{{$role->name}}">{{$role->name}}</option>
+                            @endif
+                            
+                            @endforeach
                         </select>
                     </div>
 

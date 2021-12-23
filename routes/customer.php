@@ -23,6 +23,9 @@ Route::prefix('customer')->middleware(['auth', 'role:Customer'])->group(function
     Route::get('suppliers', [CustomerController::class, 'getSupplier']);
     Route::post('order/modified', [OrderController::class, 'orderModify']);
 
+    Route::get('rectify', [CustomerController::class, 'rectifyOrders']);
+
+
     Route::get('/supplierdetails/{id}', function ($id) {
         $supplier = User::IsActive()->role('Supplier')->find($id);
         $products = Product::IsActive()->where('supplier_id', $id)->whereNull('category_id')->get();

@@ -4,7 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use bilawalsh\cart\Models\Order;
+use bilawalsh\cart\Models\OrderItem;
+
 use Illuminate\Support\Facades\Auth;
+use App\Models\RectifyOrder;
+use App\Models\RectifyOrderItem;
+use App\Models\User;
+
+use Illuminate\Support\Facades\DB;
 
 
 class OrderController extends Controller
@@ -106,5 +113,85 @@ class OrderController extends Controller
         $order->qty = json_encode($new_qty);
         $order->save();
         return back()->with('success', 'Item deleted from cart');
+    }
+
+
+    public function rectifyOrder(Request $request){
+
+        $o = Order::find($request->order_id);
+        $order_items = OrderItem::where('order_id',$o->id)->get();
+        $sup = User::role('Supplier')->where('abbrivation',explode('-',$o->order_number)[1])->first();
+
+        // dump($sup);
+        // dump($order_items);
+        // dump($o);
+
+        // dd($request->all());
+
+        try{
+            DB::beginTransaction();
+
+
+            $order = RectifyOrder::create([
+                'order_no' => $o->order_no,
+                'order_number' => $o->order_number,
+                'user_id' => $o->user_id,
+                'user_name' => $o->user_name,
+                'supplier_name' => $o->supplier_name."-".$sup->id,
+                'item_count' => $o->item_count,
+                'total' => $o->total,
+                'order_status' => RectifyOrder::RECTIFIED,
+                'discount' => $o->discount,
+                'taxes' => 0,
+                'grand_total' => $o->grand_total,
+                'delivery_date' => $o->delivery_date,
+            ]);
+
+            foreach($order_items as $orderitem){
+                $orderItem =  new RectifyOrderItem;
+                $orderItem->order_id = $order->id;
+                $orderItem->product_id = $orderitem->product_id;
+                $orderItem->product_name = $orderitem->product_name;
+                $orderItem->quantity = $orderitem->quantity;
+                $orderItem->min_quantity = $orderitem->min_quantity;
+                $orderItem->unit_price = $orderitem->unit_price;
+                $orderItem->unit_name = $orderitem->unit_name;
+    
+                // $orderItem->unit = $product->pivot->unit_price;
+                $orderItem->save();
+
+            }
+            // dd($order_items);
+
+            foreach($order_items as $orderitem){
+                $orderitem->delete();
+
+            }
+
+            $o->delete();
+           
+    
+    
+            $a = activity()->log('Look mum, I logged something');
+                    $a->subject_type = "Order";
+                    $a->subject_id = $order->order_number;
+                    $a->causer_type = "Admin";
+                    $a->properties = 1;
+                    $a->action = "Order Rectified";
+                    if($request->message){
+                        $a->comments = $request->message;
+    
+                    }
+                    $a->save();
+
+            DB::commit();
+
+        }catch(\Exception $e){
+            DB::rollBack();
+            return $e->getMessage();
+        }
+
+        return back()->with('success','Order Rectified Successfully');
+        
     }
 }

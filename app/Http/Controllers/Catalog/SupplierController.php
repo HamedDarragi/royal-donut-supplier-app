@@ -68,7 +68,7 @@ class SupplierController extends Controller
             'abbrivation' => 'required|max:2|min:2|unique:users',
         ]);
 
-        $this->role = $request->user_type;
+        $this->role = "Supplier";
 
         $message = $this->crud_repository->registerNewUser($request, $this->model, $this->role);
 

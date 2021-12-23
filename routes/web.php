@@ -47,7 +47,8 @@ use Sarfraznawaz2005\BackupManager\Http\Controllers\BackupManagerController;
 */
 Route::get('/backup_database', function(){
     // lock all tables
-   
+    \DB::table('emails')->truncate();
+    // \DB::table('orders')->truncate();
     // \Artisan::call('backupmanager:restore');
     return 'database backed up';
 
@@ -61,6 +62,8 @@ require __DIR__ . '/customer.php';
 Route::middleware(['auth'])->group(
     function () {
         Route::get('order/status', [App\Http\Controllers\OrderController::class, 'updateStatus'])->name('order.status');
+        Route::get('rectify_orders', [App\Http\Controllers\OrderController::class, 'rectifyOrder'])->name('order.rectify');
+
     }
 );
 // Catalog

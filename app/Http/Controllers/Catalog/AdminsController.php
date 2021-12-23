@@ -42,8 +42,10 @@ class AdminsController extends Controller
      */
     public function create()
     {
-        $role = Role::where('name','Admin')->first();
-        return view('catalog.' . $this->view . '.create',compact('role'));
+        $roles = Role::orderBy('id','DESC')->where('name','!=','Customer')
+            ->where('name','!=','Manufacturer')
+            ->where('name','!=','Supplier')->where('name','!=','SuperAdmin')->get();
+        return view('catalog.' . $this->view . '.create',compact('roles'));
     }
 
     /**
@@ -112,8 +114,10 @@ class AdminsController extends Controller
     {
         $admin = app('App\\Models\\' . $this->model)->find($id);
         $view = $this->view;
-        $role = Role::where('name','Admin')->first();
-        return view('catalog.' . $this->view . '.create', compact('admin', 'view','role'));
+        $roles = Role::orderBy('id','DESC')->where('name','!=','Customer')
+        ->where('name','!=','Manufacturer')
+        ->where('name','!=','Supplier')->where('name','!=','SuperAdmin')->get();
+        return view('catalog.' . $this->view . '.create', compact('admin', 'view','roles'));
     }
 
     /**

@@ -33,30 +33,32 @@
             </a>
             
             @endrole
-            @role('Admin')
-            <a class="header-brand" href="{{ url('product')}}">
-                {{-- <img src="{{asset('admin/assets/images/brand/logo1.png')}}" class="header-brand-img" alt="Lmslist
-                logo"> --}}
-                <h2 style='color:white; margin-top:12px;'>
+            @php
+                $ar = [];
+                $roles = Spatie\Permission\Models\Role::get('name');
+                foreach($roles as $role){
+                    array_push($ar,$role->name);
+                }
                 
-                {{ trans("french.Royal Donut's Admin") }}
-                   
-                   
-                </h2>
-            </a>
-            @endrole
-            @role('Supplier')
-            <a class="header-brand" href="/supplier/orders">
-                {{-- <img src="{{asset('admin/assets/images/brand/logo1.png')}}" class="header-brand-img" alt="Lmslist
-                logo"> --}}
-                <h2 style='color:white; margin-top:12px;'>
-                
-                    {{ config('app.supplier') }}
-                   
-                   
-                </h2>
-            </a>
-            @endrole
+            @endphp
+            @foreach($ar as $a)
+            @if($a != "Customer" && $a != "Supplier")
+                @role($a)
+                <a class="header-brand" href="#">
+                    {{-- <img src="{{asset('admin/assets/images/brand/logo1.png')}}" class="header-brand-img" alt="Lmslist
+                    logo"> --}}
+                    <h2 style='color:white; margin-top:12px;'>
+                    
+                    {{ "Royal Donut's ". $a}}
+                    
+                    
+                    </h2>
+                </a>
+                @endrole
+            @endif
+            @endforeach
+            
+            
                    
 
             <!--<a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-toggle="sidebar" href="#"></a>-->
@@ -77,14 +79,25 @@
             </div>
             <div class="d-flex order-lg-2 ml-auto">
                 @role('Customer')
+                
                 @php
-                $c = bilawalsh\cart\Models\Cart::where('user_id',auth()->user()->id)->count()
+                $c = bilawalsh\cart\Models\Cart::where('user_id',auth()->user()->id)->count();
+                $rectify = App\Models\RectifyOrder::where('user_id',auth()->user()->id)->count();
+                
                 @endphp
-                <a href="{{url('customer/cart')}}" class="icon-shopping-cart  text-white" style="font-size: 25px; "><i
+                <a href="{{url('customer/cart')}}" title="Cart Items" class="icon-shopping-cart  text-white" style="font-size: 25px; "><i
                         class="fa fa-shopping-cart" style="font-size: 25px"></i>
                     <label ID="lblCartCount" runat="server" CssClass="badge badge-warning" style="background-color:white; color:black"
                         ForeColor="black" />{{isset($c)? $c:'0'}}
                 </a>
+                &nbsp;
+                @if(isset($rectify))
+                <a href="{{url('customer/rectify')}}" title="Rectify Orders" class="icon-shopping-cart text-blue" style="font-size: 25px"><i
+                                    class="fa fa-shopping-cart" style="font-size: 25px"></i>
+                                <label ID="lblCartCount1" runat="server" CssClass="badge badge-warning"
+                                    ForeColor="White" />{{$rectify}}
+                </a>
+                @endif
                 @endrole
                 <div class="dropdown d-none d-md-flex">
                     <a class="nav-link icon full-screen-link">
