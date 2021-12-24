@@ -52,6 +52,10 @@ class CrudRepository
 
     public function registerNewUser($request, $model, $role)
     {
+
+        $request->validate([
+            'email' => 'unique:users'
+        ]);
         DB::beginTransaction();
         try {
             $this->model = app('App\\Models\\' . $model);

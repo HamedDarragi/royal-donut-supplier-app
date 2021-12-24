@@ -5,11 +5,18 @@
 @endsection
 @section('content')
 <div class="row">
+
     <div class="col-xl-12">
+        
         <div class="card m-b-20">
             <div class="card-header">
                 <h3 class="card-title">{{ trans('french.customer')}}</h3>
             </div>
+            @if($errors->any())
+                <div style="background:red;color:white;padding:20px">
+                    {{ implode('', $errors->all(':message')) }}
+                </div>
+            @endif
             <div class="card-body">
                 <form action="{{ isset($customer)? route('customer.update',$customer->id):route('customer.store') }}"
                     method="post" enctype="multipart/form-data">

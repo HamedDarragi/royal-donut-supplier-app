@@ -3,20 +3,24 @@
     <div class="col-md-12">
 
         <div class="row pull-right">
-            <div class="col-sm-4 ">
+            <!-- <div class="col-sm-4 ">
                 <a href="javascript:void(0);" onClick="printPage(printsection.innerHTML)"
                     class="btn btn-primary text-white mr-5"><i class="fa fa-print"></i>
                     {{ trans('french.report')}}</a>
-            </div>
-            <div class="col-sm-4 " style="margin-left:10px;">
+            </div> -->
+            <div class="col-sm-4 ">
                 <a href="{{ route($view.'.create') }}" class="btn btn-primary text-white mr-5"><i
                         class="fa fa-plus"></i>
                         {{ trans('french.customer')}}</a>
             </div>
+            <div class="col-sm-4"></div>
+            <div class="col-sm-2"></div>
+
 
         </div>
     </div>
 </div>
+
 <div class="card-body">
     <div class="table-responsive">
         @include('message')

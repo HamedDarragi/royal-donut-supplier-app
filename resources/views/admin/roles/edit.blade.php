@@ -32,13 +32,13 @@
 <div class="row card mt-5 p-2">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>Name:</strong>
-            {{ $role->name }}
+            <h5>Name: {{ $role->name }}</h5>
+            
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>Permission:</strong>
+            <h5>Permission:</h5>
             <br/>
             <div class="row">
             @foreach($permission as $value)
