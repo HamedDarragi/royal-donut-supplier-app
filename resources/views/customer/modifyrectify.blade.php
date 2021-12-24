@@ -51,7 +51,7 @@
                         App\Models\RectifyOrder::where(['supplier_name'=>$supid,'user_id'=>Auth::id()])->first();
                         @endphp
                         @csrf
-                        @foreach($category->products as $product)
+                        @foreach($products as $product)
                         @php
                         
                         $data =
