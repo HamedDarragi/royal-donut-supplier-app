@@ -23,7 +23,7 @@
                     <th class="wd-15p">{{ trans('french.Name')}}</th>
                     <!-- <th class="wd-10p">Last Name</th> -->
                     <th class="wd-10p">{{ trans('french.Email')}}</th>
-                    <th class="wd-10p">{{trans('french.Mobile Number')}}</th>
+                    <th class="wd-10p">Role</th>
                     {{-- <th class="wd-10p">Status</th> --}}
                     <th class="wd-10p">{{ trans('french.Action')}}</th>
 
@@ -36,7 +36,13 @@
                     <td>{{ $i++ }}</td>
                     <td>{{ $admin->first_name }}</td>
                     <td>{{ $admin->email }}</td>
-                    <td>{{ $admin->mobilenumber }}</td>
+                    <td>
+                        @if(!empty($admin->getRoleNames()->first()))
+                            <label class="badge badge-success">{{ $admin->getRoleNames()->first() }}</label>
+                        @else
+                        <label class="badge badge-danger">None</label>
+                        @endif
+                    </td>
                     {{-- <td>
                         <a href="{{ route('admins.status',$admin->id) }}"><span
                                 class="label label-pill label-{{ $admin->isActive == 1?'success':'danger' }} mt-2"

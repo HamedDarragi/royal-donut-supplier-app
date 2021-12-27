@@ -32,7 +32,8 @@
 <div class="row card mt-5 p-2">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <h5>Name: {{ $role->name }}</h5>
+<h5>Name: </h5>
+            <input type="text" name="name" value="{{ $role->name }}" class="form-control">
             
         </div>
     </div>
@@ -62,8 +63,8 @@
             
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-        <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <button type="submit" class="btn btn-primary">Update Role</button>
     </div>
 </div>
 </form>

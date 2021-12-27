@@ -69,7 +69,7 @@ Route::middleware(['auth'])->group(
 // Catalog
 Route::resource('admins', AdminsController::class);
 
-Route::middleware(['auth', 'role:Admin|SuperAdmin'])->group(function () {
+// Route::middleware(['auth', 'role:Admin|SuperAdmin'])->group(function () {
 
     Route::post('product/update/index/align', function (Request $request) {
         try {
@@ -208,7 +208,7 @@ Route::middleware(['auth', 'role:Admin|SuperAdmin'])->group(function () {
 
         return view('catalog.order.allorders', compact('orders'));
     });
-});
+// });
 Route::get('getproducts', [ProductController::class, 'getProducts'])->name('getproducts');
 
 //API route

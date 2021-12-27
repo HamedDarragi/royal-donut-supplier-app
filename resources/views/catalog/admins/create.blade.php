@@ -38,35 +38,11 @@
                         <input type="password" class="form-control" name="password" id="password"
                             placeholder="***************">
                     </div>
-                    <div class="form-group">
-                        <label class="form-label" for="franchise_name">{{ trans('french.Franchise Name')}}</label>
-                        <input type="text" class="form-control" name="franchise_name" id="franchise_name" required
-                            value="{{ isset($admin)?$admin->franchise_name:''}}"
-                            placeholder=" Enter Franchise name">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="mobilenumber">{{ trans('french.Mobile Number')}}</label>
-                        <input type="text" class="form-control" name="mobilenumber" id="mobilenumber" required
-                            value="{{ isset($admin)?$admin->mobilenumber:''}}" placeholder=" Enter mobile number">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="mobilenumber">City</label>
-                        <input type="text" class="form-control" name="city" id="city" required
-                            value="{{ isset($admin)?$admin->city:''}}" placeholder="City">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="address">{{ trans('french.Address')}}</label>
-                        <input type="text" class="form-control" name="address" id="address" required
-                            value="{{ isset($admin)?$admin->address:''}}" placeholder=" Enter address">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="address">{{ trans('french.Zip Code')}}</label>
-                        <input type="number" class="form-control" name="zip_code" id="zip_code" required
-                            value="{{ isset($admin)?$admin->zip_code:''}}" placeholder="">
-                    </div>
+                    <input type="hidden" value="adm" name="adm">
                     <div class="form-group">
                         <label class="form-label" for="address">Role</label>
                         <select name="user_type" id="user_type" class="form-control" required>
+                            <option value="none">None</option>
                             @foreach($roles as $role)
                             @if(isset($admin))
                                 @if($admin->hasRole($role->name))
