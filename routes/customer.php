@@ -24,6 +24,13 @@ Route::prefix('customer')->middleware(['auth', 'role:Customer'])->group(function
     Route::post('order/modified', [OrderController::class, 'orderModify']);
 
     Route::get('rectify', [CustomerController::class, 'rectifyOrders']);
+    Route::get('removerectify/{id}/{item_id}', [OrderController::class, 'removeRectifyOrders'])->name('remove_rectify');
+    Route::get('modifyrectify/{name}', [OrderController::class, 'modifyRectifyOrders'])->name('modify_rectify');
+    Route::post('rectify/add/{name}', [OrderController::class, 'add'])->name('rectify.add');
+    Route::get('confirm_rectify_orders', [OrderController::class, 'rectifyOrderConfirmed']);
+
+
+
 
 
     Route::get('/supplierdetails/{id}', function ($id) {

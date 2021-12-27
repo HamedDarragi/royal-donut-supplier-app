@@ -30,7 +30,14 @@ class AdminsController extends Controller
     {
 
         // dd('hjh');
-        $admins = app('App\\Models\\' . $this->model)::role('Admin')->get();
+        $adms = app('App\\Models\\' . $this->model)->get();
+        $admins = [];
+        foreach($adms as $a){
+            if(!$a->hasRole('Customer') && !$a->hasRole('Supplier') && !$a->hasRole('SuperAdmin')){
+                array_push($admins,$a);
+            }
+        }
+        // dd($admins);
         $view = $this->view;
         return view('mycomponent.datatable', compact('admins', 'view'));
     }
@@ -60,15 +67,10 @@ class AdminsController extends Controller
             'first_name' => 'required',
             'email' => 'required',
             'password' => 'required',
-            'franchise_name' => 'required',
-            'mobilenumber' => 'required',
-            'address' => 'required',
-            'zip_code' => 'required',
-            'city' => 'required'
+            
 
         ]);
         $this->role = $request->user_type;
-        if(strlen($request->zip_code) == 5){
             $message = $this->crud_repository->registerNewUser($request, $this->model, $this->role);
 
             // $cust = app('App\\Models\\' . $this->model)::latest()->first();
@@ -82,15 +84,7 @@ class AdminsController extends Controller
             // dd($a);
 
             return redirect()->route('admins.index')->with('status', $this->model . $message);
-        }else{
-            // $a = activity()->log('Look mum, I logged something');
-            // $a->subject_type = "Customer";
-            // $a->causer_type = "Admin";
-            // $a->properties = 0;
-            // $a->action = "Customer Not Created";
-            // $a->save();
-            return redirect()->route('admins.index')->with('status', "Value of zip code must contain 5 digit");
-        }
+       
         
     }
 
@@ -129,6 +123,7 @@ class AdminsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $message = $this->crud_repository->update($request, $id, $this->model);
         // $cust = app('App\\Models\\' . $this->model)::find($id);
         //     $a = activity()->log('Look mum, I logged something');

@@ -57,14 +57,7 @@
                         <div class="col-9">
                             <table class="">
                                 <thead>
-                                    <tr>
-                                        <th class="text-right px-2">
-                                            <h5>{{ trans('french.Order')}}# : </h5>
-                                        </th>
-                                        <th class="text-left px-2">
-                                            <h6> {{$order->order_number}}</h6>
-                                        </th>
-                                    </tr>
+                                    
                                     <tr>
                                         <th class="text-right px-2">
                                             <h5>{{ trans('french.Supplier')}} : </h5>
@@ -127,6 +120,8 @@
                             <th scope="col" class="order_header">{{ trans('french.Price')}} (€)</th>
                             <th scope="col" class="order_header">{{ trans('french.REQUIRED QUANTITY')}}</th>
                             <th scope="col" class="order_header">{{ trans('french.MINIMUM QUANTITY')}}</th>
+                            <th scope="col" class="order_header">Action</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -140,6 +135,9 @@
                             <td scope="row">{{ $item->unit_price }} €</td>
                             <td scope="row">{{ $item->quantity }}</td>
                             <td scope="row">{{ $item->min_quantity}}</td>
+                            <td>
+                                <a href="{{ route('remove_rectify',[$order->id,$item->id]) }}"><i class="fa fa-times text-red"></i></a>
+                            </td>
                         </tr>
                         @php $k++; @endphp
 
@@ -147,50 +145,43 @@
                     </tbody>
                 </table>
             </div>
+            @php $rec = "rec";  @endphp
             <div class="card-footer">
                 <div class="col-12">
-                    <div class="row">
-                        <div class="col-9 float-left"></div>
-                        <div class="col-3 col-sm-12 float-right text-right">
-                            @if($order->order_status == bilawalsh\cart\Models\Order::CONFIRMED)
-            
-                            @elseif($order->order_status == bilawalsh\cart\Models\Order::INDELIVERY)
-                            <button data-toggle="modal" data-target="#deliverymodal{{$order->id}}" class="btn btn-primary">
-                            {{ trans('french.Delivered')}} <i class="fa fa-arrow-right"></i></button>
+                    <div class="row float-right">
+                        <a href="{{ route('modify_rectify',$order->supplier_name) }}" class="btn btn-primary float-right">Modify</a>&nbsp;
+                        <button data-toggle="modal" data-target="#rectify_confirm{{$order->id}}" class="btn btn-success">
+                        Confirm <i class="fa fa-arrow-right"></i></button>
 
-                            <div class="modal fade" id="deliverymodal{{$order->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <form action="{{ url('order/status') }}" method="get" enctype="multipart/form-data">
-                                        @csrf
-                                            <input type="hidden" name="order_id" value="{{ $order->id }}">
-                                            <input type="hidden" name="order_status" value="3">
-                                            <input type="hidden" name="cas" value="Admin">
+                                <div class="modal fade" id="rectify_confirm{{$order->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <form action="{{ url('customer/confirm_rectify_orders') }}" method="get" enctype="multipart/form-data">
+                                            @csrf
+                                                <input type="hidden" name="order_id" value="{{ $order->id }}">
+                                                <input type="hidden" name="order_status" value="1">
 
 
-
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Give Comments</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <label for="">Comments</label>
-                                                <textarea class="form-control" maxlength="100" name="message" id="message" cols="30" rows="3"></textarea>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Change</button>
-                                            </div>
-                                        </form>
-                                        
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel" style="color:grey">Give Comments</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <label for="">Comments</label>
+                                                    <textarea class="form-control" maxlength = "100" name="message" id="message" cols="30" rows="3"></textarea>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Confirm Order</button>
+                                                </div>
+                                            </form>
+                                            
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                                
-                            @endif
-                        </div>
+                        
                     </div>
                 </div>
             </div>

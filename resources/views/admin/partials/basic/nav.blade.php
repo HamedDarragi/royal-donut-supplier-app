@@ -91,7 +91,7 @@
                         ForeColor="black" />{{isset($c)? $c:'0'}}
                 </a>
                 &nbsp;
-                @if(isset($rectify))
+                @if($rectify > 0)
                 <a href="{{url('customer/rectify')}}" title="Rectify Orders" class="icon-shopping-cart text-blue" style="font-size: 25px"><i
                                     class="fa fa-shopping-cart" style="font-size: 25px"></i>
                                 <label ID="lblCartCount1" runat="server" CssClass="badge badge-warning"

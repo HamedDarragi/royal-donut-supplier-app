@@ -259,7 +259,7 @@ class OrderController extends Controller
         for ($i = 0; $i < $size; $i++) {
             try {
                 if ($request->quantity[$i] < $request->min_qty[$i]) {
-                    Session::flash('success', 'Required Quantity Must be greater than Minimum Quantity');
+                    \Session::flash('success', 'Required Quantity Must be greater than Minimum Quantity');
                     return back();
                 }
             } catch (Exception $e) {
@@ -308,7 +308,10 @@ class OrderController extends Controller
                                                 ->where('order_id',$cart_exist->id)->first();
                     // dump($cart_item_exist);
                     $product = Product::find($request->product_id[$i]);
-
+                    if ($product->quantity < $request->quantity[$i]) {
+                        \Session::flash('success', $product->name . ' Quantity not available');
+                        return back();
+                    }
                     $unit = Unit::find($product->unit_id);
                     $min_quantity = 0;
                     if (!empty($cart_item_exist)) {

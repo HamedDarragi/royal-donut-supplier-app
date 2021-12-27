@@ -52,10 +52,16 @@ class CrudRepository
 
     public function registerNewUser($request, $model, $role)
     {
+
+        $request->validate([
+            'email' => 'unique:users'
+        ]);
         DB::beginTransaction();
         try {
             $this->model = app('App\\Models\\' . $model);
             $data = $this->model->create($request->only($this->model->getFillable()));
+           
+            
             if($role == "Supplier"){
                 if(isset($request->company) && count($request->company) > 0){
                     for($i=0; $i < count($request->company); $i++){
@@ -80,7 +86,18 @@ class CrudRepository
                 $data->city = $request->city;
                 $data->save();
             }
-            $data->assignRole($role);
+
+
+            if($request->adm){
+                if($request->user_type != "none"){
+                    $data->assignRole($role);
+                    // dump('1'. $request->user_type);
+                }
+            }else{
+                $data->assignRole($role);
+            }
+
+            
             DB::commit();
             return trans('message.Success_created');
         } catch (Exception $e) {
@@ -112,6 +129,19 @@ class CrudRepository
 
             $this->model = app('App\\Models\\' . $model);
             $data = $this->model::find($id);
+            // dd($request->user_type);
+            if($request->adm){
+                if(!$data->hasRole($request->user_type)){
+                    if($request->user_type != "none"){
+                        $data->roles()->detach();
+                        $data->assignRole($request->user_type);
+                        // dump('1'. $request->user_type);
+                    }else if($request->user_type == "none"){
+                        $data->roles()->detach();    
+                    }
+                    
+                }
+            }
             //delete image in array by value "image"
             $fill = $this->model->getFillable();
             if (($key = array_search("abbrivation", $fill)) !== false) {

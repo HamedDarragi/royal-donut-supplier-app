@@ -201,7 +201,7 @@
                                 </div>
                             </div>
                         <div class="col-5 float-right text-right">
-                            @if($order->order_status != bilawalsh\cart\Models\Order::DELIVERED && empty($rectify))
+                            @if($order->order_status != bilawalsh\cart\Models\Order::DELIVERED)
                                 <button data-toggle="modal" data-target="#rectify_modal{{$order->id}}" class="btn btn-primary">
                                 Rectify Order <i class="fa fa-arrow-right"></i></button>
 
@@ -226,7 +226,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Change</button>
+                                                    <button type="submit" class="btn btn-primary">Rectify</button>
                                                 </div>
                                             </form>
                                             
