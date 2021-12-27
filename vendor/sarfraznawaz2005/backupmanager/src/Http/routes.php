@@ -15,6 +15,8 @@ Route::group(
         // restore/delete backups
         Route::post('restore_delete',
             'BackupManagerController@restoreOrDeleteBackups')->name('backupmanager_restore_delete');
+        //  Route::post('database_updation',
+        //      'BackupManagerController@updateDbFile')->name('database_updation');
 
         // download backup
         Route::get('download/{file}', 'BackupManagerController@download')->name('backupmanager_download');

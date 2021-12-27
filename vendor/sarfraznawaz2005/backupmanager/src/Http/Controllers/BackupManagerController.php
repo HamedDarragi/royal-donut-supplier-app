@@ -9,8 +9,10 @@ use Illuminate\Mail\Message;
 use Illuminate\Routing\Controller as BaseController;
 use Log;
 use Sarfraznawaz2005\BackupManager\Facades\BackupManager;
+use Illuminate\Support\Facades\DB;
 use Session;
 use Storage;
+
 
 class BackupManagerController extends BaseController
 {
@@ -32,11 +34,18 @@ class BackupManagerController extends BaseController
     {
 
         //dd($request->all());
-        $check = BackupManager::updateDb($request->db_name, $request->db_name_edit . ".gz");
+        DB::table('database_information')->where('name',$request->db_name)->update(['name'=> $request->db_name_edit . ".gz"]);
+        DB::table('database_information')->where('database_storage_name',$request->db_name)->update(['database_storage_name'=> $request->db_name_edit . ".gz"]);
+        DB::connection('mysql2')->table('database_information')->where('name',$request->db_name)->update(['name'=> $request->db_name_edit . ".gz"]);
+ 
+       DB::connection('mysql2')->table('database_information')->where('database_storage_name',$request->db_name)->update(['database_storage_name'=> $request->db_name_edit . ".gz"]);
+
+        
+        $check = BackupManager::updatedb($request->db_name, $request->db_name_edit . ".gz");
         // dd($check);
         if ($check === "y") {
             $message = 'Database Updated Successfully';
-
+            
             $messages[] = [
                 'type' => 'success',
                 'message' => $message
@@ -132,11 +141,14 @@ class BackupManagerController extends BaseController
 
     public function restoreOrDeleteBackups()
     {
-        //dd(request()->all());
+        // DB::table('database_information')->where('name',$request->db_name)->update(['name'=> $request->db_name_edit . ".gz"]);
+        // DB::table('database_information')->where('database_storage_name',$request->db_name)->update(['database_storage_name'=> $request->db_name_edit . ".gz"]);
+        // dd(request()->all());
         $mailBody = '';
         $messages = [];
         $backups = request()->backups;
         $type = request()->type;
+        //   DB::table('database_information')->insert( ['name' => $backups, 'status' => '1','database_storage_name' => $backups]);
 
         // dd(request()->backups);
 
@@ -152,9 +164,9 @@ class BackupManagerController extends BaseController
 
         if ($type === 'restore') {
             // restore backups
-
+    
             $results = BackupManager::restoreBackups($backups);
-            // dd($backups);
+            //  dd($results);
             // set status messages
             foreach ($results as $result) {
                 if (isset($result['f'])) {

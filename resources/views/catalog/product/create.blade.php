@@ -91,6 +91,11 @@
                             value="{{ isset($product)?$product->price:''}}" placeholder=" Enter Price ">
                     </div>
                     <div class="form-group">
+                        <label class="form-label" for="price">Package item </label>
+                        <input type="number" class="form-control" name="package"  required
+                        value="{{ isset($product)?$product->package:''}}"     placeholder=" Enter Package item ">
+                    </div>
+                    <div class="form-group">
                         <label class="form-label" for="price">{{ trans('french.Description')}} </label>
                         <textarea name="description" id="description" cols="30" class="form-control"
                             rows="10">{{ isset($product)?$product->description:''}}</textarea>
