@@ -433,7 +433,6 @@ class OrderController extends Controller
                     $prod = Product::find($p->product_id);
                     if ($prod->quantity < $p->quantity) {
                         
-    
                         \Session::flash('success', $prod->name . ' Quantity not available');
                         return redirect('customer/rectify');
                     }
@@ -479,7 +478,7 @@ class OrderController extends Controller
             }catch(\Exception $e){
                 DB::rollBack();
 
-                \Session::flash('success', $e->getMessage());
+              \Session::flash('success', $e->getMessage());
                 return back();
             }
         
