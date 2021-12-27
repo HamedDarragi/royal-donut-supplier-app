@@ -21,7 +21,14 @@
         </div>
     </div>
 
-
+    @php
+    $arr = [];
+    $roles = Spatie\Permission\Models\Role::get('name');
+    foreach($roles as $role){
+        array_push($arr,$role->name);
+    }
+    
+    @endphp
 
     {{-- <ul class="side-menu">
         <li class="slide">
@@ -29,28 +36,59 @@
                     class="side-menu__label">Catalog</span><i class="angle fa fa-angle-right"></i></a> --}}
             {{-- <ul class="slide-menu">--}}
                 <ul class="p-5">
-                    @role('Admin')
+                <!-- Super Admin -->
+            @foreach($arr as $a)
+                @if($a != "Customer" && $a != "Supplier")
+                
+                @role($a)
+                    @can('Products')
                     <li><a class="slide-item" href="{{ route('product.index') }}">{{ trans('french.Products') }}</a></li>
+                    @endcan
+                    @can('Categories')
                     <li><a class="slide-item" href="{{ route('category.index') }}">{{ trans('french.Categories') }}</a></li>
+                    @endcan
+                    @can('Orders')
                     <li><a class="slide-item" href="{{url('orders')}}">{{ trans('french.Orders') }}</a></li>
+                    @endcan
+                    @can('Units')
                     <li><a class="slide-item" href="{{ route('unit.index') }}">{{ trans('french.Units') }}</a></li>
-                    {{-- <li><a class="slide-item" href="{{ route('inventory.index') }}">Inventory</a></li> --}}
-                    <li><a class="slide-item" href="{{ route('customer.index') }}">{{ trans('french.Customers') }}</a></li>
-                    {{-- <li><a class="slide-item" href="{{ route('broadcast.index') }}">Broadcast Email</a></li>
-                    <li><a class="slide-item" href="{{ route('broadcast_group.index') }}">Email Group</a></li> --}}
-                    {{-- <li><a class="slide-item" href="{{ route('manufacturing_partner.index') }}">Manufacturers</a>
-                    </li> --}}
-                    <li><a class="slide-item" href="{{ route('supplier.index') }}">{{ trans('french.Suppliers') }}</a></li>
-                    <li><a class="slide-item" href="{{ route('deliverycompany.index') }}">{{ trans('french.Delivery Companies') }}</a></li>
-
-                    <li><a class="slide-item" href="{{ route('calendar') }}">{{ trans('french.Calendar') }}</a></li>
-                    <li><a class="slide-item" href="{{ route('rule.index') }}">{{ trans('french.Rules')}}</a></li>
-                    <li><a class="slide-item" href="{{ route('backlogs.index') }}">{{ trans('french.Backlogs')}}</a></li>
                     
-            <li><a class="slide-item" href="{{ route('associate_rule.index') }}">{{ trans('french.Associate Rule')}}</a></li>
-            
-            <li><a class="slide-item" href="{{ route('backupmanager') }}">Backups</a></li>
-
+                    {{-- <li><a class="slide-item" href="{{ route('inventory.index') }}">Inventory</a></li> --}}
+                    @endcan
+                    @can('Admins')
+                    <li><a class="slide-item" href="{{ route('admins.index') }}">Admins</a></li>
+                   
+                    @endcan
+                    @can('Customers')
+                    <li><a class="slide-item" href="{{ route('customer.index') }}">{{ trans('french.Customers') }}</a></li>
+                   
+                    @endcan
+                    @can('Suppliers')
+                    
+                    <li><a class="slide-item" href="{{ route('supplier.index') }}">{{ trans('french.Suppliers') }}</a></li>
+                    @endcan
+                    @can('DeliveryCompanies')
+                    <li><a class="slide-item" href="{{ route('deliverycompany.index') }}">{{ trans('french.Delivery Companies') }}</a></li>
+                    @endcan
+                    @can('Calendar')
+                    <li><a class="slide-item" href="{{ route('calendar') }}">{{ trans('french.Calendar') }}</a></li>
+                    @endcan
+                    @can('Rules')
+                    <li><a class="slide-item" href="{{ route('rule.index') }}">{{ trans('french.Rules')}}</a></li>
+                    @endcan
+                    @can('Backlogs')
+                    <li><a class="slide-item" href="{{ route('backlogs.index') }}">{{ trans('french.Backlogs')}}</a></li>
+                    @endcan
+                    @can('Associate Rule')
+                    <li><a class="slide-item" href="{{ route('associate_rule.index') }}">{{ trans('french.Associate Rule')}}</a></li>
+                    @endcan
+                            @can('ManageRoles')
+                    <li><a class="slide-item" href="{{ route('roles.index') }}">Manage Role</a></li>
+                    @endcan
+                            @can('Backups')
+                    <li><a class="slide-item" href="{{ route('backupmanager') }}">Backups</a></li>
+                    @endcan
+                    @can('EmailSettings')
                     <li>
                     <details>
                         <summary class="mt-2">{{ trans('french.Email Settings') }}</summary>
@@ -60,12 +98,23 @@
                         
                     </details>
                     </li>
-                    @endrole
+                    @endcan
+                @endrole
+                @endif
+            @endforeach
+                <!-- End Super Admin -->
+                
 
                     @role('Customer')
+                   
+                   
                     <li><a class="slide-item" href="{{ url('customer/suppliers') }}">{{ trans('french.Suppliers') }}</a></li>
                     <!-- <li><a class="slide-item" href="{{url('customer/cart_page')}}">Cart</a></li> -->
+                 
+                    
                     <li><a class="slide-item" href="{{url('customer/myorders')}}">{{ trans('french.Orders') }}</a></li>
+                   
+                    
                     @endrole
 
                     @role('Supplier')

@@ -106,7 +106,7 @@
                             <td>{{ $log->created_at }}</td>
                             <td id="editable{{ $log->id }}" contenteditable>
                                 
-                                {!! html_entity_decode($log->comments) !!}
+                            {!! html_entity_decode(substr($log->comments,0,20)) !!}
                             </td>
                             <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -118,7 +118,7 @@
                                     
                                     var id = "{{ $log->id }}";
                                     var _token = "{{ csrf_token() }}";
-                                    if(value.length <= 100){
+                                   
                                         $.ajax({
                                             type: 'post',
                                             url: '{{ url("log/update/index/align") }}',
@@ -129,14 +129,7 @@
                                             
                                             }
                                         });
-                                    }else{
-                                        Swal.fire({
-                                            icon: 'error',
-                                            title: 'Oops...',
-                                            text: 'Comments Length should be less or equal to 100',
-                                        })
-                                        
-                                    }
+                                    
                                     
                                 });
                             </script>

@@ -1,26 +1,18 @@
 <div class="card-header">
-    <div class="card-title">{{ trans('french.Customers')}}</div>
+    <div class="card-title">Admins</div>
     <div class="col-md-12">
 
         <div class="row pull-right">
-            <!-- <div class="col-sm-4 ">
-                <a href="javascript:void(0);" onClick="printPage(printsection.innerHTML)"
-                    class="btn btn-primary text-white mr-5"><i class="fa fa-print"></i>
-                    {{ trans('french.report')}}</a>
-            </div> -->
-            <div class="col-sm-4 ">
+            
+            <div class="col-sm-4 " style="margin-left:10px;">
                 <a href="{{ route($view.'.create') }}" class="btn btn-primary text-white mr-5"><i
                         class="fa fa-plus"></i>
-                        {{ trans('french.customer')}}</a>
+                        Admin</a>
             </div>
-            <div class="col-sm-4"></div>
-            <div class="col-sm-2"></div>
-
 
         </div>
     </div>
 </div>
-
 <div class="card-body">
     <div class="table-responsive">
         @include('message')
@@ -39,40 +31,40 @@
             </thead>
             <tbody>
                 @php $i=1; @endphp
-                @foreach ($customers as $customer)
+                @foreach ($admins as $admin)
                 <tr>
                     <td>{{ $i++ }}</td>
-                    <td>{{ $customer->first_name }}</td>
-                    <td>{{ $customer->email }}</td>
-                    <td>{{ $customer->mobilenumber }}</td>
+                    <td>{{ $admin->first_name }}</td>
+                    <td>{{ $admin->email }}</td>
+                    <td>{{ $admin->mobilenumber }}</td>
                     {{-- <td>
-                        <a href="{{ route('customer.status',$customer->id) }}"><span
-                                class="label label-pill label-{{ $customer->isActive == 1?'success':'danger' }} mt-2"
-                                style="font-size:11px;">{{ $customer->isActive == 1?
+                        <a href="{{ route('admins.status',$admin->id) }}"><span
+                                class="label label-pill label-{{ $admin->isActive == 1?'success':'danger' }} mt-2"
+                                style="font-size:11px;">{{ $admin->isActive == 1?
                                 trans('message.isActive.active'):trans('message.isActive.inactive') }}</span>
                         </a>
                     </td> --}}
                     {{-- <td>
-                        <a href="{{ route('customer.status',$customer->id) }}"><span
-                                class="label label-pill label-{{ $customer->isActive == 1?'success':'danger' }} mt-2">{{
-                                $customer->isActive == 1?
+                        <a href="{{ route('admins.status',$admin->id) }}"><span
+                                class="label label-pill label-{{ $admin->isActive == 1?'success':'danger' }} mt-2">{{
+                                $admin->isActive == 1?
                                 trans('message.isActive.active'):trans('message.isActive.inactive') }}</span>
                         </a>
                     </td> --}}
                     <td>
                         <div class="row">
                             <div class="col-sm-3">
-                                <a type="button" data-toggle="modal" data-target="#Show{{ $customer->id }}"><span
+                                <a type="button" data-toggle="modal" data-target="#Show{{ $admin->id }}"><span
                                         class="label label-pill label-success mt-2"><i class="fa fa-eye"></i>
                                         {{trans('french.View')}}</span>
                                 </a>
                             </div>
                             <div class="col-sm-2">
-                                <a href="{{ route('customer.edit',$customer->id) }}" class="btn btn-primary btn-sm"><i
+                                <a href="{{ route('admins.edit',$admin->id) }}" class="btn btn-primary btn-sm"><i
                                         class="fa fa-edit text-white"></i></a>
                             </div>
                             <div class="col-sm-2">
-                                <form action="{{ route('customer.destroy',$customer->id) }}" method="POST"
+                                <form action="{{ route('admins.destroy',$admin->id) }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
                                     @method('DELETE')
@@ -88,12 +80,12 @@
 
 
                 {{-- Show Modal --}}
-                <div class="modal" id="Show{{ $customer->id }}" role="dialog" aria-labelledby="exampleModalLongTitle"
+                <div class="modal" id="Show{{ $admin->id }}" role="dialog" aria-labelledby="exampleModalLongTitle"
                     style="display: none;" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">{{ $customer->first_name }}</h5>
+                                <h5 class="modal-title" id="exampleModalLongTitle">{{ $admin->first_name }}</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">×</span>
                                 </button>
@@ -104,7 +96,7 @@
                                     {{ trans('french.Mobile Number')}}
                                     </div>
                                     <div class="card-body">
-                                        {{ $customer->mobilenumber }}
+                                        {{ $admin->mobilenumber }}
                                     </div>
                                 </div>
                                 <div class="card">
@@ -112,7 +104,7 @@
                                     <div class="card-body">
 
 
-                                        {{ $customer->address }}
+                                        {{ $admin->address }}
                                     </div>
                                 </div>
 
@@ -129,8 +121,8 @@
     </div>
 </div>
 <div id="printsection" style="display:none">
-    @if(count($customers) == 0)
-    <p>No customer registered yet</p>
+    @if(count($admins) == 0)
+    <p>No admin registered yet</p>
     @else
     <div class="table-responsive">
         @include('message')
@@ -145,13 +137,13 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($customers as $customer)
+                @foreach ($admins as $admin)
                 <tr>
-                    <td>{{ $customer->first_name }}</td>
-                    <td>{{ $customer->last_name}}</td>
-                    <td>{{ $customer->email }}</td>
-                    <td>{{ $customer->mobilenumber}}</td>
-                    <td>{{ $customer->address}}</td>
+                    <td>{{ $admin->first_name }}</td>
+                    <td>{{ $admin->last_name}}</td>
+                    <td>{{ $admin->email }}</td>
+                    <td>{{ $admin->mobilenumber}}</td>
+                    <td>{{ $admin->address}}</td>
                 </tr>
                 @endforeach
             </tbody>

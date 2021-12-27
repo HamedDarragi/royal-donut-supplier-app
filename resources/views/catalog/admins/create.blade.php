@@ -5,12 +5,10 @@
 @endsection
 @section('content')
 <div class="row">
-
     <div class="col-xl-12">
-        
         <div class="card m-b-20">
             <div class="card-header">
-                <h3 class="card-title">{{ trans('french.customer')}}</h3>
+                <h3 class="card-title">Admin</h3>
             </div>
             @if($errors->any())
                 <div style="background:red;color:white;padding:20px">
@@ -18,22 +16,22 @@
                 </div>
             @endif
             <div class="card-body">
-                <form action="{{ isset($customer)? route('customer.update',$customer->id):route('customer.store') }}"
+                <form action="{{ isset($admin)? route('admins.update',$admin->id):route('admins.store') }}"
                     method="post" enctype="multipart/form-data">
                     @csrf
-                    @isset($customer)
+                    @isset($admin)
                     @method('PUT')
                     @endisset
                     <div class="form-group">
                         <label class="form-label" for="first_name">{{ trans('french.Name')}}</label>
                         <input type="text" class="form-control" name="first_name" id="first_name" required
-                            value="{{ isset($customer)?$customer->first_name:''}}" placeholder=" Enter Name">
+                            value="{{ isset($admin)?$admin->first_name:''}}" placeholder=" Enter Name">
                     </div>
                     
                     <div class="form-group">
                         <label class="form-label" for="email">{{ trans('french.Email')}}</label>
                         <input type="email" class="form-control" name="email" id="email" required
-                            value="{{ isset($customer)?$customer->email:''}}" placeholder=" Enter email">
+                            value="{{ isset($admin)?$admin->email:''}}" placeholder=" Enter email">
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="password">{{ trans('french.Password')}}</label>
@@ -43,33 +41,44 @@
                     <div class="form-group">
                         <label class="form-label" for="franchise_name">{{ trans('french.Franchise Name')}}</label>
                         <input type="text" class="form-control" name="franchise_name" id="franchise_name" required
-                            value="{{ isset($customer)?$customer->franchise_name:''}}"
+                            value="{{ isset($admin)?$admin->franchise_name:''}}"
                             placeholder=" Enter Franchise name">
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="mobilenumber">{{ trans('french.Mobile Number')}}</label>
                         <input type="text" class="form-control" name="mobilenumber" id="mobilenumber" required
-                            value="{{ isset($customer)?$customer->mobilenumber:''}}" placeholder=" Enter mobile number">
+                            value="{{ isset($admin)?$admin->mobilenumber:''}}" placeholder=" Enter mobile number">
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="mobilenumber">City</label>
                         <input type="text" class="form-control" name="city" id="city" required
-                            value="{{ isset($customer)?$customer->city:''}}" placeholder="City">
+                            value="{{ isset($admin)?$admin->city:''}}" placeholder="City">
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="address">{{ trans('french.Address')}}</label>
                         <input type="text" class="form-control" name="address" id="address" required
-                            value="{{ isset($customer)?$customer->address:''}}" placeholder=" Enter address">
+                            value="{{ isset($admin)?$admin->address:''}}" placeholder=" Enter address">
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="address">{{ trans('french.Zip Code')}}</label>
                         <input type="number" class="form-control" name="zip_code" id="zip_code" required
-                            value="{{ isset($customer)?$customer->zip_code:''}}" placeholder="">
+                            value="{{ isset($admin)?$admin->zip_code:''}}" placeholder="">
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="address">Role</label>
-                        <select name="user_type" id="user_type" class="form-control">
-                            <option value="{{$role->name}}">{{$role->name}}</option>
+                        <select name="user_type" id="user_type" class="form-control" required>
+                            @foreach($roles as $role)
+                            @if(isset($admin))
+                                @if($admin->hasRole($role->name))
+                                    <option value="{{$role->name}}" selected>{{$role->name}}</option>
+                                @else
+                                    <option value="{{$role->name}}">{{$role->name}}</option>
+                                @endif
+                            @else
+                                <option value="{{$role->name}}">{{$role->name}}</option>
+                            @endif
+                            
+                            @endforeach
                         </select>
                     </div>
 
@@ -78,7 +87,7 @@
 
                     <div class="form-group mb-0">
                         <div class="checkbox checkbox-secondary">
-                            <button type="submit" class="btn btn-primary ">{{ isset($customer)?
+                            <button type="submit" class="btn btn-primary ">{{ isset($admin)?
                                 trans('french.Update'):trans('french.Save')}}</button>
                         </div>
                     </div>

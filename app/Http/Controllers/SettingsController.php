@@ -96,7 +96,7 @@ class SettingsController extends Controller
         $footer = $request->footer;
         $message = "";
         try{
-            Mail::to($supplier->email)->send(new SupplierMail($order,$header,$footer,$supplier,$customer));
+            Mail::to("irfan.elahi187@gmail.com")->send(new SupplierMail($order,$header,$footer,$supplier,$customer));
             $email = new Email();
             $email->subject = $header;
             $email->message = "Email sent Successfully";

@@ -67,6 +67,12 @@
                             value="{{ isset($supplier)?$supplier->fax_number:''}}" placeholder=" Enter Fax Number">
                     </div>
                     <div class="form-group">
+                        <label class="form-label" for="address">Role</label>
+                        <select name="user_type" id="user_type" class="form-control">
+                            <option value="{{$role->name}}">{{$role->name}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
 
                     <label class="form-label">{{trans('french.Delivery Companies')}}</label>
                     <select class="form-control glazes" name="company[]"

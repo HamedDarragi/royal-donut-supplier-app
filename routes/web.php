@@ -11,6 +11,9 @@ use App\Http\Controllers\Catalog\CustomerController;
 use App\Http\Controllers\Catalog\SupplierController;
 use App\Http\Controllers\Catalog\BroadcastController;
 use App\Http\Controllers\Catalog\InventoryController;
+use App\Http\Controllers\Catalog\RoleController;
+use App\Http\Controllers\Catalog\AdminsController;
+
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Catalog\BroadcastGroupController;
 use App\Http\Controllers\Catalog\ManufacturingPartnerController;
@@ -44,8 +47,11 @@ use Sarfraznawaz2005\BackupManager\Http\Controllers\BackupManagerController;
 */
 Route::get('/backup_database', function(){
     // lock all tables
-    \Artisan::call('backupmanager:restore');
+    \DB::table('emails')->truncate();
+    // \DB::table('orders')->truncate();
+    // \Artisan::call('backupmanager:restore');
     return 'database backed up';
+
 });
 Route::get('/', function () {
     return view('auth.login');
@@ -56,10 +62,14 @@ require __DIR__ . '/customer.php';
 Route::middleware(['auth'])->group(
     function () {
         Route::get('order/status', [App\Http\Controllers\OrderController::class, 'updateStatus'])->name('order.status');
+        Route::get('rectify_orders', [App\Http\Controllers\OrderController::class, 'rectifyOrder'])->name('order.rectify');
+
     }
 );
 // Catalog
-Route::middleware(['auth', 'role:Admin'])->group(function () {
+Route::resource('admins', AdminsController::class);
+
+Route::middleware(['auth', 'role:Admin|SuperAdmin'])->group(function () {
 
     Route::post('product/update/index/align', function (Request $request) {
         try {
@@ -154,7 +164,7 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
 
 
     Route::resource('deliverycompany', DeliveryCompanyController::class);
-
+    Route::resource('roles', RoleController::class);
 
     Route::resource('rule', RuleController::class);
     Route::resource('associate_rule', AssociateController::class);
@@ -188,8 +198,8 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
             Route::get('download/{file}', [BackupManagerController::class,'download'])->name('backupmanager_download');
    
                 Route::get('reset', [BackupManagerController::class, 'resetData'])->name('reset_data');
-Route::post('db_update', [BackupManagerController::class, 'updateDbFile'])->name('database_updation');
 
+                Route::get('db_update', [BackupManagerController::class, 'updateDbFile'])->name('database_updation');
 
 
     Route::get('orders', function () {

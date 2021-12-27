@@ -56,6 +56,8 @@
     
     $email = App\Models\Email::where('order_number',$order->order_number)
                                 ->where('status',1)->first();
+    $rectify = App\Models\RectifyOrder::where('order_number',$order->order_number)
+                                ->first();
     $date = explode(" ",$order->created_at);
     @endphp
     <section class="orderdetails my-2 col-md-12">
@@ -199,10 +201,44 @@
                                 </div>
                             </div>
                         <div class="col-5 float-right text-right">
+                            @if($order->order_status != bilawalsh\cart\Models\Order::DELIVERED)
+                                <button data-toggle="modal" data-target="#rectify_modal{{$order->id}}" class="btn btn-primary">
+                                Rectify Order <i class="fa fa-arrow-right"></i></button>
+
+                                <div class="modal fade" id="rectify_modal{{$order->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <form action="{{ url('rectify_orders') }}" method="get" enctype="multipart/form-data">
+                                            @csrf
+                                                <input type="hidden" name="order_id" value="{{ $order->id }}">
+                                                <input type="hidden" name="order_status" value="5">
+
+
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel" style="color:grey">Give Comments</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <label for="">Comments</label>
+                                                    <textarea class="form-control" maxlength = "100" name="message" id="message" cols="30" rows="3"></textarea>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Change</button>
+                                                </div>
+                                            </form>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                             @if($order->order_status == bilawalsh\cart\Models\Order::TREATED && !empty($email))
                             
                             <button data-toggle="modal" data-target="#indeliverymodal{{$order->id}}" class="btn btn-primary">
                             {{ trans('french.Indelivery')}} <i class="fa fa-arrow-right"></i></button>
+                            
                            
                             
                             <div class="modal fade" id="indeliverymodal{{$order->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

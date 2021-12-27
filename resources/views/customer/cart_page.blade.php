@@ -345,7 +345,8 @@
                                                                             <label class="selectgroup-item">
                                                                                 <input type="radio" name="selected_date"
                                                                                     id="date_0_input"
-                                                                                    class="selectgroup-input" value="" checked>
+                                                                                    class="selectgroup-input" value=""
+                                                                                    checked>
                                                                                 <span class="selectgroup-button"
                                                                                     id="date_0"></span>
                                                                             </label>
@@ -468,7 +469,7 @@
                                                             Confirmation
                                                         </h4>
                                                         <button type="button" class="close"
-                                                            style="color:red" data-dismiss="modal">&times;</button>
+                                                           type="button" class="close"  style="color:red" data-dismiss="modal">&times;</button>
                                                     </div>
 
                                                     <!-- Modal body -->
@@ -731,7 +732,7 @@
                                                                             Confirmation
                                                                         </h4>
                                                                         <button type="button" class="close"
-                                                                            style="color:red" data-dismiss="modal">&times;</button>
+                                                                           type="button" class="close"  style="color:red" data-dismiss="modal">&times;</button>
                                                                     </div>
 
                                                                     <!-- Modal body -->
@@ -776,10 +777,7 @@
                                                                                         {{ getCurrencySign($total) }}
                                                                                     </p>
                                                                                 </div>
-                                                                                <div class="form-group" id="select_delivery_date">
-                                                                                    <label class="form-label">Select Delivery Date
-                                                                                    </label>
-                                                                                     <div
+                                                                                <div
                                                                                         class="selectgroup selectgroup-pills">
                                                                                         <label class="selectgroup-item">
                                                                                             <input type="radio"
@@ -828,7 +826,7 @@
                                                                                                 id="date_4"></span>
                                                                                         </label>
                                                                                     </div>
-                                                                                </div>
+
                                                                                 <div
                                                                                     style="">
                                                                                     <label for="">Comments</label><br>
@@ -1268,7 +1266,7 @@
                                 message:message
                             },
                             success: function(response) {
-                                console.log("ORRRRRRRRRR", response[0]);
+                                console.log("ORRRRRRRRRR", response[0].data , response[0].message , response[0].date);
                                 if (response.redirect == true) {
                                     if(response[0].message){
                                         window.location.href = baseUrl +
@@ -1277,6 +1275,8 @@
                                         window.location.href = baseUrl +
                                         '/order/confirmed/' + response[0].data + '/0/'+ response[0].date;
                                     }
+                                         
+                                   
                                    
                                 }
                             }

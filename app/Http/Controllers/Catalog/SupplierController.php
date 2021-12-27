@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\DeliveryCompany;
 use App\Models\CompanySupplier;
 use Spatie\Activitylog\Models\Activity;
+use Spatie\Permission\Models\Role;
 
 
 
@@ -50,8 +51,9 @@ class SupplierController extends Controller
     {
        
        $companies = DeliveryCompany::all();
+       $role = Role::where('name','Supplier')->first();
 
-        return view('catalog.'.$this->view.'.create',compact('companies'));
+        return view('catalog.'.$this->view.'.create',compact('companies','role'));
     }
 
     /**
@@ -66,6 +68,7 @@ class SupplierController extends Controller
             'abbrivation' => 'required|max:2|min:2|unique:users',
         ]);
 
+        $this->role = "Supplier";
 
         $message = $this->crud_repository->registerNewUser($request, $this->model, $this->role);
 
@@ -97,7 +100,9 @@ class SupplierController extends Controller
 
 
         $view = $this->view;
-        return view('catalog.'.$this->view.'.create', compact('supplier', 'view','companies'));
+       $role = Role::where('name','Supplier')->first();
+
+        return view('catalog.'.$this->view.'.create', compact('supplier', 'view','companies','role'));
     }
 
     /**

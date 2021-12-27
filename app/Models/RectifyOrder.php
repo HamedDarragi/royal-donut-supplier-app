@@ -1,15 +1,11 @@
 <?php
 
-namespace bilawalsh\cart\Models;
+namespace App\Models;
 
-use App\Models\Product;
-use App\Models\User;
-
-
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class RectifyOrder extends Model
 {
     use HasFactory;
 
@@ -19,8 +15,7 @@ class Order extends Model
     const TREATED = 4;
     const RECTIFIED = 5;
 
-
-
+    protected $table = "rectify_orders";
     protected $fillable = ['order_no','order_number', 'user_id','user_name', 'supplier_name', 'item_count', 'total', 'order_status', 'discount', 'taxes', 'grand_total','delivery_date'];
 
     public function products()
@@ -32,6 +27,4 @@ class Order extends Model
     {
         return $this->belongsToMany(User::class);
     }
-
-    
 }
