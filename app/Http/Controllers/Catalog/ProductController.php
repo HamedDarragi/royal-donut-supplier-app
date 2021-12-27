@@ -72,7 +72,8 @@ class ProductController extends Controller
             'unit_id' => 'required',
             'index' => 'unique:products',
             'name' => ['string', 'unique:products'],
-            'price' => 'required|numeric|gt:0'
+            'price' => 'required|numeric|gt:0',
+            'package' => 'required|numeric|gt:0'
         ]);
         DB::beginTransaction();
         try {
