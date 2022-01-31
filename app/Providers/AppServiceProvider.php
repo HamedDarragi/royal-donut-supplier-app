@@ -23,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        \URL::forceScheme('https');
         // Shortcodes::add([
         //     'a' => AllShortcode::class,
         //     // 'b' => BShortcode::class,
